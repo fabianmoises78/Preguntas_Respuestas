@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PreguntasRespuestasModelStoreContainer" CdmEntityContainer="Datos">
+    <EntitySetMapping Name="ESTADO">
+      <EntityTypeMapping TypeName="PreguntasRespuestasModel.ESTADO">
+        <MappingFragment StoreEntitySet="ESTADO">
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+          <ScalarProperty Name="NOMBRE_ESTADO" ColumnName="NOMBRE_ESTADO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PREGUNTAS">
+      <EntityTypeMapping TypeName="PreguntasRespuestasModel.PREGUNTAS">
+        <MappingFragment StoreEntitySet="PREGUNTAS">
+          <ScalarProperty Name="ID_PREGUN" ColumnName="ID_PREGUN" />
+          <ScalarProperty Name="PREGUNTA" ColumnName="PREGUNTA" />
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+          <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RESPUESTAS">
+      <EntityTypeMapping TypeName="PreguntasRespuestasModel.RESPUESTAS">
+        <MappingFragment StoreEntitySet="RESPUESTAS">
+          <ScalarProperty Name="ID_RESP" ColumnName="ID_RESP" />
+          <ScalarProperty Name="RESPUESTA" ColumnName="RESPUESTA" />
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="ID_PREGUN" ColumnName="ID_PREGUN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="PreguntasRespuestasModel.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="USUARIO1" ColumnName="USUARIO" />
+          <ScalarProperty Name="CONTRASEÑA" ColumnName="CONTRASEÑA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CREARPREGUNTA" FunctionName="PreguntasRespuestasModel.Store.CREARPREGUNTA" />
+    <FunctionImportMapping FunctionImportName="CREARRESPUESTA" FunctionName="PreguntasRespuestasModel.Store.CREARRESPUESTA" />
+    <FunctionImportMapping FunctionImportName="CREARUSUARIO" FunctionName="PreguntasRespuestasModel.Store.CREARUSUARIO" />
+    <FunctionImportMapping FunctionImportName="DESACTIVARPREGUNTA" FunctionName="PreguntasRespuestasModel.Store.DESACTIVARPREGUNTA" />
+    <FunctionImportMapping FunctionImportName="LISTARPREGUNTAS" FunctionName="PreguntasRespuestasModel.Store.LISTARPREGUNTAS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PreguntasRespuestasModel.LISTARPREGUNTAS_Result">
+          <ScalarProperty Name="ID_PREGUN" ColumnName="ID_PREGUN" />
+          <ScalarProperty Name="PREGUNTA" ColumnName="PREGUNTA" />
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="NOMBRE_ESTADO" ColumnName="NOMBRE_ESTADO" />
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LISTARRESPUESTAS" FunctionName="PreguntasRespuestasModel.Store.LISTARRESPUESTAS">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PreguntasRespuestasModel.LISTARRESPUESTAS_Result">
+          <ScalarProperty Name="RESPUESTA" ColumnName="RESPUESTA" />
+          <ScalarProperty Name="ID_RESP" ColumnName="ID_RESP" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="ID_PREGUN" ColumnName="ID_PREGUN" />
+          <ScalarProperty Name="PREGUNTA" ColumnName="PREGUNTA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="LOGINUSUARIO" FunctionName="PreguntasRespuestasModel.Store.LOGINUSUARIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PreguntasRespuestasModel.LOGINUSUARIO_Result">
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PREGUNTABYID" FunctionName="PreguntasRespuestasModel.Store.PREGUNTABYID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PreguntasRespuestasModel.PREGUNTABYID_Result">
+          <ScalarProperty Name="ID_PREGUN" ColumnName="ID_PREGUN" />
+          <ScalarProperty Name="PREGUNTA" ColumnName="PREGUNTA" />
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="NOMBRE_ESTADO" ColumnName="NOMBRE_ESTADO" />
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PREGUNTASBYUSER" FunctionName="PreguntasRespuestasModel.Store.PREGUNTASBYUSER">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PreguntasRespuestasModel.PREGUNTASBYUSER_Result">
+          <ScalarProperty Name="ID_PREGUN" ColumnName="ID_PREGUN" />
+          <ScalarProperty Name="PREGUNTA" ColumnName="PREGUNTA" />
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="NOMBRE_ESTADO" ColumnName="NOMBRE_ESTADO" />
+          <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="USUARIOEXISTE" FunctionName="PreguntasRespuestasModel.Store.USUARIOEXISTE">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PreguntasRespuestasModel.USUARIOEXISTE_Result">
+          <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+          <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+          <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+          <ScalarProperty Name="CONTRASEÑA" ColumnName="CONTRASEÑA" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

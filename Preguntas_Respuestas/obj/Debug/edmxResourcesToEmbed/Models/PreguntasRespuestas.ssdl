@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PreguntasRespuestasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ESTADO">
+    <Key>
+      <PropertyRef Name="ID_ESTADO" />
+    </Key>
+    <Property Name="ID_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE_ESTADO" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PREGUNTAS">
+    <Key>
+      <PropertyRef Name="ID_PREGUN" />
+    </Key>
+    <Property Name="ID_PREGUN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PREGUNTA" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+    <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+    <Property Name="FECHA" Type="datetime" />
+  </EntityType>
+  <EntityType Name="RESPUESTAS">
+    <Key>
+      <PropertyRef Name="ID_RESP" />
+    </Key>
+    <Property Name="ID_RESP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RESPUESTA" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+    <Property Name="ID_PREGUN" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="ID_USUARIO" />
+    </Key>
+    <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NOMBRE" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="USUARIO" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="CONTRASEÑA" Type="varchar" MaxLength="25" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ESTADO_PREGUNTA">
+    <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="1" />
+    <End Role="PREGUNTAS" Type="Self.PREGUNTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO">
+        <PropertyRef Name="ID_ESTADO" />
+      </Principal>
+      <Dependent Role="PREGUNTAS">
+        <PropertyRef Name="ID_ESTADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PREGUNTA_RESPUESTA">
+    <End Role="PREGUNTAS" Type="Self.PREGUNTAS" Multiplicity="1" />
+    <End Role="RESPUESTAS" Type="Self.RESPUESTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PREGUNTAS">
+        <PropertyRef Name="ID_PREGUN" />
+      </Principal>
+      <Dependent Role="RESPUESTAS">
+        <PropertyRef Name="ID_PREGUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIO_PREGUNTA">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PREGUNTAS" Type="Self.PREGUNTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="PREGUNTAS">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIO_RESPUESTA">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="RESPUESTAS" Type="Self.RESPUESTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="RESPUESTAS">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="CREARPREGUNTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PREGUNTA" Type="varchar" Mode="In" />
+    <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CREARRESPUESTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RESPUESTA" Type="varchar" Mode="In" />
+    <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+    <Parameter Name="ID_PREGUNTA" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CREARUSUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+    <Parameter Name="USUARIO" Type="varchar" Mode="In" />
+    <Parameter Name="CONTRASEÑA" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="DESACTIVARPREGUNTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_PREGUNTA" Type="int" Mode="In" />
+    <Parameter Name="ID_ESTADO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="LISTARPREGUNTAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="LISTARRESPUESTAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_PREGUNTA" Type="int" Mode="In" />
+  </Function>
+  <Function Name="LOGINUSUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USUARIO" Type="varchar" Mode="In" />
+    <Parameter Name="CONTRASEÑA" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="PREGUNTABYID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_PREGUNTA" Type="int" Mode="In" />
+  </Function>
+  <Function Name="PREGUNTASBYUSER" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+  </Function>
+  <Function Name="USUARIOEXISTE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USUARIO" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="PreguntasRespuestasModelStoreContainer">
+    <EntitySet Name="ESTADO" EntityType="Self.ESTADO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PREGUNTAS" EntityType="Self.PREGUNTAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RESPUESTAS" EntityType="Self.RESPUESTAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ESTADO_PREGUNTA" Association="Self.FK_ESTADO_PREGUNTA">
+      <End Role="ESTADO" EntitySet="ESTADO" />
+      <End Role="PREGUNTAS" EntitySet="PREGUNTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PREGUNTA_RESPUESTA" Association="Self.FK_PREGUNTA_RESPUESTA">
+      <End Role="PREGUNTAS" EntitySet="PREGUNTAS" />
+      <End Role="RESPUESTAS" EntitySet="RESPUESTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIO_PREGUNTA" Association="Self.FK_USUARIO_PREGUNTA">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="PREGUNTAS" EntitySet="PREGUNTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIO_RESPUESTA" Association="Self.FK_USUARIO_RESPUESTA">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="RESPUESTAS" EntitySet="RESPUESTAS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

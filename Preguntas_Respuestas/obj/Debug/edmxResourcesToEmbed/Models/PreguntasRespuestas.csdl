@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PreguntasRespuestasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ESTADO">
+    <Key>
+      <PropertyRef Name="ID_ESTADO" />
+    </Key>
+    <Property Name="ID_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE_ESTADO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PREGUNTAS" Relationship="Self.FK_ESTADO_PREGUNTA" FromRole="ESTADO" ToRole="PREGUNTAS" />
+  </EntityType>
+  <EntityType Name="PREGUNTAS">
+    <Key>
+      <PropertyRef Name="ID_PREGUN" />
+    </Key>
+    <Property Name="ID_PREGUN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PREGUNTA" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+    <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+    <Property Name="FECHA" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ESTADO" Relationship="Self.FK_ESTADO_PREGUNTA" FromRole="PREGUNTAS" ToRole="ESTADO" />
+    <NavigationProperty Name="RESPUESTAS" Relationship="Self.FK_PREGUNTA_RESPUESTA" FromRole="PREGUNTAS" ToRole="RESPUESTAS" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_PREGUNTA" FromRole="PREGUNTAS" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="RESPUESTAS">
+    <Key>
+      <PropertyRef Name="ID_RESP" />
+    </Key>
+    <Property Name="ID_RESP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RESPUESTA" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+    <Property Name="ID_PREGUN" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PREGUNTAS" Relationship="Self.FK_PREGUNTA_RESPUESTA" FromRole="RESPUESTAS" ToRole="PREGUNTAS" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_USUARIO_RESPUESTA" FromRole="RESPUESTAS" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="ID_USUARIO" />
+    </Key>
+    <Property Name="ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOMBRE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USUARIO1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CONTRASEÑA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PREGUNTAS" Relationship="Self.FK_USUARIO_PREGUNTA" FromRole="USUARIO" ToRole="PREGUNTAS" />
+    <NavigationProperty Name="RESPUESTAS" Relationship="Self.FK_USUARIO_RESPUESTA" FromRole="USUARIO" ToRole="RESPUESTAS" />
+  </EntityType>
+  <Association Name="FK_ESTADO_PREGUNTA">
+    <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="1" />
+    <End Role="PREGUNTAS" Type="Self.PREGUNTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADO">
+        <PropertyRef Name="ID_ESTADO" />
+      </Principal>
+      <Dependent Role="PREGUNTAS">
+        <PropertyRef Name="ID_ESTADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PREGUNTA_RESPUESTA">
+    <End Role="PREGUNTAS" Type="Self.PREGUNTAS" Multiplicity="1" />
+    <End Role="RESPUESTAS" Type="Self.RESPUESTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PREGUNTAS">
+        <PropertyRef Name="ID_PREGUN" />
+      </Principal>
+      <Dependent Role="RESPUESTAS">
+        <PropertyRef Name="ID_PREGUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIO_PREGUNTA">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PREGUNTAS" Type="Self.PREGUNTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="PREGUNTAS">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USUARIO_RESPUESTA">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="RESPUESTAS" Type="Self.RESPUESTAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="ID_USUARIO" />
+      </Principal>
+      <Dependent Role="RESPUESTAS">
+        <PropertyRef Name="ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Datos" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ESTADO" EntityType="Self.ESTADO" />
+    <EntitySet Name="PREGUNTAS" EntityType="Self.PREGUNTAS" />
+    <EntitySet Name="RESPUESTAS" EntityType="Self.RESPUESTAS" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+    <AssociationSet Name="FK_ESTADO_PREGUNTA" Association="Self.FK_ESTADO_PREGUNTA">
+      <End Role="ESTADO" EntitySet="ESTADO" />
+      <End Role="PREGUNTAS" EntitySet="PREGUNTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PREGUNTA_RESPUESTA" Association="Self.FK_PREGUNTA_RESPUESTA">
+      <End Role="PREGUNTAS" EntitySet="PREGUNTAS" />
+      <End Role="RESPUESTAS" EntitySet="RESPUESTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIO_PREGUNTA" Association="Self.FK_USUARIO_PREGUNTA">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="PREGUNTAS" EntitySet="PREGUNTAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USUARIO_RESPUESTA" Association="Self.FK_USUARIO_RESPUESTA">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="RESPUESTAS" EntitySet="RESPUESTAS" />
+    </AssociationSet>
+    <FunctionImport Name="CREARPREGUNTA">
+      <Parameter Name="PREGUNTA" Mode="In" Type="String" />
+      <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CREARRESPUESTA">
+      <Parameter Name="RESPUESTA" Mode="In" Type="String" />
+      <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+      <Parameter Name="ID_PREGUNTA" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CREARUSUARIO">
+      <Parameter Name="NOMBRE" Mode="In" Type="String" />
+      <Parameter Name="USUARIO" Mode="In" Type="String" />
+      <Parameter Name="CONTRASEÑA" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DESACTIVARPREGUNTA">
+      <Parameter Name="ID_PREGUNTA" Mode="In" Type="Int32" />
+      <Parameter Name="ID_ESTADO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LISTARPREGUNTAS" ReturnType="Collection(PreguntasRespuestasModel.LISTARPREGUNTAS_Result)" />
+    <FunctionImport Name="LISTARRESPUESTAS" ReturnType="Collection(PreguntasRespuestasModel.LISTARRESPUESTAS_Result)">
+      <Parameter Name="ID_PREGUNTA" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="LOGINUSUARIO" ReturnType="Collection(PreguntasRespuestasModel.LOGINUSUARIO_Result)">
+      <Parameter Name="USUARIO" Mode="In" Type="String" />
+      <Parameter Name="CONTRASEÑA" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="PREGUNTABYID" ReturnType="Collection(PreguntasRespuestasModel.PREGUNTABYID_Result)">
+      <Parameter Name="ID_PREGUNTA" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PREGUNTASBYUSER" ReturnType="Collection(PreguntasRespuestasModel.PREGUNTASBYUSER_Result)">
+      <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="USUARIOEXISTE" ReturnType="Collection(PreguntasRespuestasModel.USUARIOEXISTE_Result)">
+      <Parameter Name="USUARIO" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="LISTARPREGUNTAS_Result">
+    <Property Type="Int32" Name="ID_PREGUN" Nullable="false" />
+    <Property Type="String" Name="PREGUNTA" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+    <Property Type="String" Name="USUARIO" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="NOMBRE_ESTADO" Nullable="false" MaxLength="15" />
+    <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="LISTARRESPUESTAS_Result">
+    <Property Type="String" Name="RESPUESTA" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="ID_RESP" Nullable="false" />
+    <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="25" />
+    <Property Type="Int32" Name="ID_PREGUN" Nullable="false" />
+    <Property Type="String" Name="PREGUNTA" Nullable="false" MaxLength="500" />
+  </ComplexType>
+  <ComplexType Name="LOGINUSUARIO_Result">
+    <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+    <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="USUARIO" Nullable="false" MaxLength="25" />
+  </ComplexType>
+  <ComplexType Name="PREGUNTABYID_Result">
+    <Property Type="Int32" Name="ID_PREGUN" Nullable="false" />
+    <Property Type="String" Name="PREGUNTA" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+    <Property Type="String" Name="USUARIO" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="NOMBRE_ESTADO" Nullable="false" MaxLength="15" />
+    <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="PREGUNTASBYUSER_Result">
+    <Property Type="Int32" Name="ID_PREGUN" Nullable="false" />
+    <Property Type="String" Name="PREGUNTA" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+    <Property Type="String" Name="USUARIO" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="NOMBRE_ESTADO" Nullable="false" MaxLength="15" />
+    <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="USUARIOEXISTE_Result">
+    <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+    <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="USUARIO" Nullable="false" MaxLength="25" />
+    <Property Type="String" Name="CONTRASEÑA" Nullable="false" MaxLength="25" />
+  </ComplexType>
+</Schema>

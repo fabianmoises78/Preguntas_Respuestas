@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="my-4">
+    <h2>Preguntas de la comunidad.</h2>
+</div>
+
+<div class="my-4">
+    <button class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-sm">Agregar nueva pregunta</button>
+    <a href="~/Home/myquestions" class="btn btn-dark mx-1 text-white">Ver mis preguntas</a>
+    <a class="btn btn-dark text-white" href="~/Home/Logout">Cerrar</a>
+</div>
+
+<div class="card my-5" id="pregunta">
+
+</div>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal">
+    <div class="modal-dialog modal-sm">
+        <div id="modalMantenimiento" class="modal-content">
+            <div class="mx-auto my-2">
+                <h4>Insertar nueva pregunta!</h4>
+            </div>
+            <div class="mx-auto">
+                <form>
+                    <input type="text" id="dato" placeholder="Inserte su pregunta" class="form-control input-lg my-1" />
+                </form>
+            </div>
+            <div class=" row my-3 mx-auto">
+                <button class="btn btn-success mx-1" id="registro">Ingresar</button>
+                <button class="btn btn-danger mx-1" onclick="location.reload()" id="salir">Salir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/js/Preguntas.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
+    <script>
+        ListarPreguntas();
+    </script>
+}

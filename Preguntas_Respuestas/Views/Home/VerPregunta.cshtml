@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "VerPregunta";
+}
+
+<div class="my-4">
+    <a href="~/Home/Inicio" class="btn btn-dark mx-3 text-white">Regresar a Mantenimiento</a>
+</div>
+
+<div class="my-4" id="pregunta">
+
+</div>
+
+<div>
+    <ul class="list-group" id="respuestas">
+    </ul>
+</div>
+
+<div>
+    <input type="text" id="respu" name="respu" placeholder="Tu respuesta" class="form-control input-lg my-3" />
+    <button class="btn btn-success btn-registrar" onclick="responder()">Responder</button>
+</div>
+
+@section scripts{
+    <script src="~/Content/js/Mostrarpregunta.js"></script>
+    <script>
+        CargarPregunta();
+    </script>
+    <script>
+        CargarRespuestas();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
+}
